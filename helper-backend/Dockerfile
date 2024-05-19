@@ -43,3 +43,4 @@ RUN chown -R app:app $APP_HOME
 
 USER app
 
+CMD ['python', 'manage.py', 'migrate']

@@ -32,7 +32,7 @@ CSRF_TRUSTED_ORIGINS = os.environ.get('DJANGO_TRUSTED_ORIGINS').split(' ')
 # Application definition
 
 INSTALLED_APPS = [
-    'core_app',
+    'core_app.apps.CoreAppConfig',
     'authentication',
     'django.contrib.admin',
     'django.contrib.auth',

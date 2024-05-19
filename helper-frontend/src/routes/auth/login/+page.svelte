@@ -10,13 +10,13 @@
         </div>
     {/if}
     <div class="input-group">
-        <label for="username">Username</label>
-        <input id="username" name="username" type="text" placeholder="@your_username">
+        <label for="username">Имя пользователя</label>
+        <input id="username" name="username" type="text" placeholder="username">
     </div>
     <div class="input-group">
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" placeholder="7ype_p@s$w0rd">
+        <label for="password">Пароль</label>
+        <input id="password" name="password" type="password" placeholder="123456">
     </div>
-    <button type="submit" class="super-button">Login</button>
+    <button type="submit" class="super-button">Войти</button>
 </form>
 

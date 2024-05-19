@@ -1,6 +1,7 @@
 from typing import Dict
 
 from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth.models import Permission
 from django.views.decorators.csrf import csrf_exempt
 from djapy import djapify, Schema, djapy_auth, SessionAuth
 from djapy.schema.user import UserSchema
@@ -34,7 +35,8 @@ User = get_user_model()
 @csrf_exempt
 def register_user(request, data: RegisterSchema, *args, **kwargs) -> {200: MessageOut, 400: InLine}:
     user = User.objects.create_user(data.username, password=data.password)
-    user.user_permissions.add(2)
+    permission = Permission.objects.get(codename='change_todoitem')
+    user.user_permissions.add(permission)
     user.save()
     login(request, user)
 

@@ -90,7 +90,7 @@ def get_todo_item(request, todo_id: int) -> TodoItemSchema:
 
 
 @djapify(allowed_method="POST")
-@djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])
+@djapy_auth(AUTH_MECHANISM, permissions=["core_app.change_todoitem"])
 def create_list_item(request, data: ListItemCreateSchema) -> ListItemSchema:
     list_item = ListItem.objects.create(**data.model_dump())
     list_item.user.add(request.user)
@@ -108,10 +108,10 @@ def create_todo_item(request, data: TodoItemCreateSchema) -> TodoItemSchema:
 
 
 @djapify(allowed_method="PUT")
-@djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])
+@djapy_auth(AUTH_MECHANISM, permissions=["core_app.change_todoitem"])
 @csrf_exempt
 def update_todo_item(request, todo_id: int, data: TodoItemUpdateSchema) -> TodoItemSchema:
-    todo_item = TodoItem.objects.get(id=todo_id)
+    todo_item = get_todo_by_id(todo_id)
     if data.title:
         todo_item.title = data.title
     if data.description:
@@ -125,11 +125,11 @@ def update_todo_item(request, todo_id: int, data: TodoItemUpdateSchema) -> TodoI
 
 
 @djapify(allowed_method="PATCH")
-@djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])
+@djapy_auth(AUTH_MECHANISM, permissions=["core_app.change_todoitem"])
 @csrf_exempt
 def delete_todo_item(request, todo_id: int, data: TodoItemUpdateSchema):
     try:
-        todo_item = TodoItem.objects.get(id=todo_id)
+        todo_item = get_todo_by_id(todo_id)
         todo_item.delete()
     except:
         return HttpResponse('400')
@@ -137,11 +137,11 @@ def delete_todo_item(request, todo_id: int, data: TodoItemUpdateSchema):
 
 
 @djapify(allowed_method="PATCH")
-@djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])
+@djapy_auth(AUTH_MECHANISM, permissions=["core_app.change_todoitem"])
 @csrf_exempt
 def delete_list_item(request, list_id: int):
     try:
-        list_item = ListItem.objects.get(id=list_id)
+        list_item = get_list_by_id(todo_id)
         list_item.delete()
     except:
         return HttpResponse('400')
@@ -149,16 +149,16 @@ def delete_list_item(request, list_id: int):
 
 
 @djapify(allowed_method="PATCH")
-@djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])
+@djapy_auth(AUTH_MECHANISM, permissions=["core_app.change_todoitem"])
 def toggle_mark_as(request, todo_id: int) -> TodoItemSchema:
-    todo_item = TodoItem.objects.get(id=todo_id)
+    todo_item = get_todo_by_id(todo_id)
     todo_item.completed_at = timezone.now() if todo_item.completed_at is None else None
     todo_item.save()
     return todo_item
 
 
 @djapify(allowed_method="POST")
-@djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])
+@djapy_auth(AUTH_MECHANISM, permissions=["core_app.change_todoitem"])
 def invite_user(request, data: UserInviteSchema):
     try:
         user = User.objects.get(username=data.username)

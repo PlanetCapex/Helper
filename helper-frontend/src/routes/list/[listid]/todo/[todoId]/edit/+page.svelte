@@ -15,7 +15,7 @@
     {/if}
     {#if $page.form?.todo}
         <div class="success">
-            Todo updated successfully: "{$page.form.todo.title}".
+            Задача успешна обновлена: "{$page.form.todo.title}".
         </div>
     {/if}
     <div class="input-group">
@@ -38,11 +38,11 @@
     </div>
 
     <div class="info-tab">
-        <span>Created <strong>{moment($page.data.todo.created_at).fromNow()}</strong>.</span>
-        <span>Updated <strong>{moment($page.data.todo.updated_at).fromNow()}</strong>.</span>
+        <span>Создано <strong>{moment($page.data.todo.created_at).fromNow()}</strong>.</span>
+        <span>Обновлено <strong>{moment($page.data.todo.updated_at).fromNow()}</strong>.</span>
     </div>
 
-    <button type="submit" class="super-button">Submit</button>
+    <button type="submit" class="super-button">Изменить</button>
 </form>
 
 <style lang="postcss">

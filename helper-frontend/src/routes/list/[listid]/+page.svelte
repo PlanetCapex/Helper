@@ -87,7 +87,7 @@
                                 Выполнено <strong>c опозданием на {moment.utc(todo.completed_at).from(moment.utc(todo.will_be_completed_at), true)}
                                 </strong>.
                             {:else}
-                                До конца <strong>{moment.utc(todo.will_be_completed_at).fromNow()}</strong>.
+                                До конца <strong>{moment(todo.will_be_completed_at).fromNow()}</strong>.
                             {/if}
                         </small>
 

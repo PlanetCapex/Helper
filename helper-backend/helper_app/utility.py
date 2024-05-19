@@ -4,8 +4,6 @@ from typing import List, Set
 import importlib
 
 
-
-
 def get_raised_exceptions_recursive(func) -> Set[str]:
     """
     Extracts the exceptions raised by a function and any function it calls

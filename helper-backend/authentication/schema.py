@@ -11,8 +11,10 @@ class ListItemSchema(Schema):
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 
+
 class ListItemCreateSchema(Schema):
     title: constr(min_length=1)
+
 
 class TodoItemSchema(Schema):
     id: int
@@ -36,6 +38,7 @@ class TodoItemUpdateSchema(Schema):
     description: Optional[str] = None
     will_be_completed_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None
+
 
 class UserInviteSchema(Schema):
     username: str

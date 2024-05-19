@@ -1,14 +1,12 @@
 #!/bin/sh
 
-if [ "$DATABASE" = "postgres" ]
-then
-    echo "Waiting for postgres..."
-
-    while ! nc -z $SQL_HOST $SQL_PORT; do
-      sleep 0.1
-    done
-
-    echo "PostgreSQL started"
+FILE=/opt/.initialized
+if [ -f "$FILE" ]; then
+    echo "Skipping initialization..."
+    echo "If you want to run initialization again remove the file"
+else
+    python manage.py makemigrations --noinput
+    python manage.py migrate --noinput
+    python manage.py collectstatic --noinput
+    python manage.py initadmin
 fi
-
-exec "$@"

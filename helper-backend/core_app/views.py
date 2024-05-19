@@ -1,10 +1,12 @@
 from typing import List
 
+
 from django.http import HttpResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from djapy import djapify, djapy_auth
 from djapy.pagination import paginate, CursorPagination
+
 
 from django.contrib.auth import get_user_model
 from authentication.schema import TodoItemSchema, TodoItemCreateSchema, TodoItemUpdateSchema
@@ -12,12 +14,15 @@ from authentication.schema import ListItemSchema, ListItemCreateSchema, UserInvi
 from errors.exception import MessageOut
 from .models import TodoItem, ListItem
 
+
 from djapy.core.auth import SessionAuth
 
 
 AUTH_MECHANISM = SessionAuth
 
+
 User = get_user_model()
+
 
 @djapify
 @paginate(CursorPagination)
@@ -34,6 +39,7 @@ def get_todo_items(request, **kwargs) -> List[TodoItemSchema]:
     todo_items = TodoItem.objects.filter(list_id=request.GET['list_id'])
     return todo_items
 
+
 def get_list_by_id(list_id):
     try:
         list_item = ListItem.objects.get(id=list_id)
@@ -44,6 +50,7 @@ def get_list_by_id(list_id):
             "list_item_not_found",
             "error"
         )
+
 
 def get_todo_by_id(todo_id):
     try:
@@ -57,7 +64,6 @@ def get_todo_by_id(todo_id):
         )
 
 
-
 @djapify
 def get_list_item(request, list_id: int) -> ListItemSchema:
     list_item = get_list_by_id(list_id)
@@ -68,6 +74,7 @@ def get_list_item(request, list_id: int) -> ListItemSchema:
         "todo_item_not_found",
         "error"
     )
+
 
 @djapify
 def get_todo_item(request, todo_id: int) -> TodoItemSchema:
@@ -80,6 +87,7 @@ def get_todo_item(request, todo_id: int) -> TodoItemSchema:
         "todo_item_not_found",
         "error"
     )
+
 
 @djapify(allowed_method="POST")
 @djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])
@@ -99,7 +107,6 @@ def create_todo_item(request, data: TodoItemCreateSchema) -> TodoItemSchema:
     return todo_item
 
 
-
 @djapify(allowed_method="PUT")
 @djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])
 @csrf_exempt
@@ -116,6 +123,7 @@ def update_todo_item(request, todo_id: int, data: TodoItemUpdateSchema) -> TodoI
     todo_item.save()
     return todo_item
 
+
 @djapify(allowed_method="PATCH")
 @djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])
 @csrf_exempt
@@ -127,6 +135,7 @@ def delete_todo_item(request, todo_id: int, data: TodoItemUpdateSchema):
         return HttpResponse('400')
     return HttpResponse('200')
 
+
 @djapify(allowed_method="PATCH")
 @djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])
 @csrf_exempt
@@ -135,9 +144,8 @@ def delete_list_item(request, list_id: int):
         list_item = ListItem.objects.get(id=list_id)
         list_item.delete()
     except:
-         return HttpResponse('400')
+        return HttpResponse('400')
     return HttpResponse('200')
-
 
 
 @djapify(allowed_method="PATCH")
@@ -147,6 +155,7 @@ def toggle_mark_as(request, todo_id: int) -> TodoItemSchema:
     todo_item.completed_at = timezone.now() if todo_item.completed_at is None else None
     todo_item.save()
     return todo_item
+
 
 @djapify(allowed_method="POST")
 @djapy_auth(AUTH_MECHANISM, permissions=["todo.change_todoitem"])

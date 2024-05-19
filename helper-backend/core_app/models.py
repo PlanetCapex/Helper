@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class ListItem(models.Model):
     user = models.ManyToManyField('auth.User', related_name='user')
     title = models.CharField(max_length=100)
@@ -27,4 +28,3 @@ class TodoItem(models.Model):
 
     def is_owner(self, user):
         return self.list_id.user.filter(id=user.id).exists()
-

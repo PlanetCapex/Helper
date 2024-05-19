@@ -49,7 +49,7 @@ export const handle = sequence(
 export const handleFetch: HandleFetch = async ({request, fetch}) => {
     if (request.url.includes('$api/')) {
         let requestUrl = request.url.split('$api/')[1];
-        requestUrl = `${SECRET_BASE_API}/${requestUrl}`;
+        requestUrl = `${SECRET_BASE_API}/apiv1/${requestUrl}`;
 
         let options: any = {
             method: request.method,

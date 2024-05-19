@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  frontend:
+    build: ./helper-frontend
+    expose:
+      - 5173
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+      - backend
   backend:
     build: ./helper-backend
     command: gunicorn helper_app.wsgi:application --bind 0.0.0.0:8000
@@ -21,8 +30,9 @@ services:
   nginx:
     build: ./nginx
     ports:
-      - 1337:80
+      - 80:80
     depends_on:
+      - frontend
       - backend
 
 volumes:

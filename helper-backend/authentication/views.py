@@ -17,6 +17,7 @@ class LoginSchema(Schema):
     username: str
     password: str
 
+
 class RegisterSchema(Schema):
     username: str
     password: str
@@ -27,6 +28,7 @@ class InLine(TypedDict):
 
 
 User = get_user_model()
+
 
 @djapify(allowed_method='POST')
 @csrf_exempt
@@ -41,6 +43,7 @@ def register_user(request, data: RegisterSchema, *args, **kwargs) -> {200: Messa
         "message_type": "success",
         "alias": "login_success",
     }
+
 
 @djapify(allowed_method='POST')
 @csrf_exempt

@@ -141,7 +141,7 @@ def delete_todo_item(request, todo_id: int, data: TodoItemUpdateSchema):
 @csrf_exempt
 def delete_list_item(request, list_id: int):
     try:
-        list_item = get_list_by_id(todo_id)
+        list_item = get_list_by_id(list_id)
         list_item.delete()
     except:
         return HttpResponse('400')

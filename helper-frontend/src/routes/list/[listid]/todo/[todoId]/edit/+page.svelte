@@ -4,7 +4,7 @@
     moment.locale('ru')
 </script>
 
-<h1>Edit your todos.</h1>
+<h1>Обновить текущию задачу</h1>
 <form action="" method="post">
     {#if $page.form}
         {#each $page.form as error}

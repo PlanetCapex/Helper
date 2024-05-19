@@ -27,7 +27,7 @@
         <label for="will_be_completed_at">Должно быть выполнено</label>
         <input id="will_be_completed_at" name="will_be_completed_at"
                 type="datetime-local"
-                value="{moment($page.data.todo.will_be_completed_at).format('YYYY-MM-DDTHH:mm')}"/>
+                value="{moment.utc($page.data.todo.will_be_completed_at).format('YYYY-MM-DDTHH:mm')}"/>
     </div>
 
     <div class="input-group">

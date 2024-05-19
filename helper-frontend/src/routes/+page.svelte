@@ -78,7 +78,7 @@
                     <div class="list-wrap">
                         <input type="hidden" name="listID" value={list.id}/>
                         <small>
-                           Создано {moment(list.created_at).format("YYYY-MM-DD")}
+                           Создано {moment.utc(list.created_at).format("YYYY-MM-DD")}
                         </small>
 
                         <div class="list-action">

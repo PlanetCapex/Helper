@@ -81,13 +81,13 @@
                         <small>
                             {todo.completed_at ? '✅' : '🔴'}
                             {#if todo.completed_at && moment(todo.completed_at).isBefore(todo.will_be_completed_at)}
-                                Выполнено  <strong>заранее за {moment(todo.will_be_completed_at).from(todo.completed_at, true)}
+                                Выполнено  <strong>заранее за {moment.utc(todo.will_be_completed_at).from(moment.utc(todo.completed_at), true)}
                                 </strong>.
                             {:else if todo.completed_at}
-                                Выполнено <strong>c опозданием на {moment(todo.completed_at).from(todo.will_be_completed_at, true)}
+                                Выполнено <strong>c опозданием на {moment.utc(todo.completed_at).from(moment.utc(todo.will_be_completed_at), true)}
                                 </strong>.
                             {:else}
-                                До конца <strong>{moment(todo.will_be_completed_at).fromNow()}</strong>.
+                                До конца <strong>{moment.utc(todo.will_be_completed_at).fromNow()}</strong>.
                             {/if}
                         </small>
 

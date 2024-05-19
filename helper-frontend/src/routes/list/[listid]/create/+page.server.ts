@@ -17,7 +17,7 @@ export const actions = {
         const createdTodoJson = await response.json();
 
         if (createdTodoJson.id) {
-            throw redirect(302, "/list/${list_id}");
+            throw redirect(302, "/list/"+list_id);
         }
 
         return fail(400, createdTodoJson);

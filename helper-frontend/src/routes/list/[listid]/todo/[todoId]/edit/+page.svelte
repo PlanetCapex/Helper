@@ -34,7 +34,7 @@
         <label for="completed_at">Было выполнено</label>
         <input id="completed_at" name="completed_at"
                type="datetime-local"
-               value="{moment($page.data.todo.completed_at).format('YYYY-MM-DDTHH:mm')}"/>
+               value="{moment.utc($page.data.todo.completed_at).format('YYYY-MM-DDTHH:mm')}"/>
     </div>
 
     <div class="info-tab">

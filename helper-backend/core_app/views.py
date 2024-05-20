@@ -13,7 +13,7 @@ from authentication.schema import TodoItemSchema, TodoItemCreateSchema, TodoItem
 from authentication.schema import ListItemSchema, ListItemCreateSchema, UserInviteSchema
 from errors.exception import MessageOut
 from .models import TodoItem, ListItem
-
+from datetime import datetime, timedelta
 
 from djapy.core.auth import SessionAuth
 
@@ -152,7 +152,11 @@ def delete_list_item(request, list_id: int):
 @djapy_auth(AUTH_MECHANISM, permissions=["core_app.change_todoitem"])
 def toggle_mark_as(request, todo_id: int) -> TodoItemSchema:
     todo_item = get_todo_by_id(todo_id)
-    todo_item.completed_at = timezone.now() if todo_item.completed_at is None else None
+    request_time = request.META.get('REQUEST_TIME', None)
+    current_time = timezone.now()
+    request_time_obj = datetime.fromisoformat(request_time)
+    current_time += (current_time - request_time_obj)
+    todo_item.completed_at = current_time if todo_item.completed_at is None else None
     todo_item.save()
     return todo_item
 

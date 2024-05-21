@@ -87,7 +87,7 @@
                                 Выполнено <strong>c опозданием на {moment.utc(todo.completed_at).from(moment.utc(todo.will_be_completed_at), true)}
                                 </strong>.
                             {:else if (!(moment().local().isBefore(moment(todo.will_be_completed_at))))}
-                                Просрочена <strong>{moment.utc(todo.will_be_completed_at).from(moment().local()}</strong>.
+                                Просрочена <strong>{moment.utc(todo.will_be_completed_at).from(moment().local())}</strong>.
                             {:else}
                                 До конца <strong>{moment(todo.will_be_completed_at).from(moment().local())}</strong>.
                             {/if}
